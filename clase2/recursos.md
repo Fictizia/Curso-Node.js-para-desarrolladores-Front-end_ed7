@@ -182,6 +182,7 @@
 ### NPM
 - [Documentación](https://docs.npmjs.com/cli/docs)
 - [Librerías útiles](https://github.com/sindresorhus/awesome-nodejs#command-line-utilities)
+- [npx](https://www.npmjs.com/package/npx)
 
 
 ### Dependency Hell:
