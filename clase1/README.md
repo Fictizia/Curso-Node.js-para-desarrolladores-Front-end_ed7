@@ -317,19 +317,13 @@
 
 > La integración continua (continuous integration en inglés) es un modelo informático que consiste en hacer integraciones automáticas de un proyecto lo más a menudo posible para así poder detectar fallos cuanto antes. Entendemos por integración la compilación y ejecución de pruebas de todo un proyecto.
 
-**Working Flow**
-
-![Como trabajar con Git](../assets/git-flow.png)
-
-> Git es un software de control de versiones pensando en la eficiencia y la confiabilidad del mantenimiento de versiones.
-
-
-### Trabajando con Git
+### Git
 
 ![git](../assets/git.png)
 
 [Tutorial interactivo](https://try.github.io/levels/1/challenges/1)
 
+> Git es un software de control de versiones pensando en la eficiencia y la confiabilidad del mantenimiento de versiones.
 
 **Trabajo efectivo**
 
@@ -347,8 +341,10 @@
 - Gestión de merges
 - Público/Privado
 
-
 **[Git Flow](http://aprendegit.com/que-es-git-flow/)**
+
+![Como trabajar con Git](../assets/git-flow.png)
+
 
 El trabajo se organiza en dos ramas principales:
 
