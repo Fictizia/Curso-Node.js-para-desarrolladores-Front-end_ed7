@@ -2551,7 +2551,7 @@ function Vehicle(maxSpeed) {
     this.maxSpeed = maxSpeed;
 }
 
-Vehicle.prototype.maxSpeed = function() {
+Vehicle.prototype.getMaxSpeed = function() {
     return this.maxSpeed;
 }
 
