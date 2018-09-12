@@ -228,27 +228,11 @@ Soporte en cliente (librerías):
   - Pares -> Estables
   - Impares -> inestables
 
-- Versiones LTS:
+![lts_schedule](../assets/nodejs-roadmap.png)
 
-  ![lts_schedule](../assets/nodejs-roadmap.png)
-  - [Planes e información](https://github.com/nodejs/LTS)
+[Planes e información](https://github.com/nodejs/LTS)
 
-
-- Grandes Cambios:
-    - [De v0.2 a v0.3](https://github.com/nodejs/node/wiki/Migrating-from-v0.2-to-v0.3)
-    - [De v0.3 a v0.4](https://github.com/nodejs/node/wiki/Migrating-from-v0.2-to-v0.4)
-    - [De v0.4 a v0.6](https://github.com/nodejs/node/wiki/API-changes-between-v0.4-and-v0.6)
-    - [De v0.6 a v0.8](https://github.com/nodejs/node/wiki/API-changes-between-v0.6-and-v0.8)
-    - [De v0.8 a v0.10](https://github.com/nodejs/node/wiki/API-changes-between-v0.8-and-v0.10)
-    - [De v0.10 a v0.12](https://github.com/nodejs/node/wiki/API-changes-between-v0.10-and-v0.12)
-    - [De v0.10 a v4](https://github.com/nodejs/node/wiki/API-changes-between-v0.10-and-v4)
-    - [De v4 a v5](https://github.com/nodejs/node/wiki/Breaking-changes-between-v4-and-v5)
-    - [De v5 a v6](https://github.com/nodejs/node/wiki/Breaking-changes-between-v5-and-v6)
-    - [De v6 a v7](https://github.com/nodejs/node/wiki/Breaking-changes-between-v6-and-v7)
-    - [De v4 LTS a v6 LTS](https://github.com/nodejs/node/wiki/Breaking-changes-between-v4-LTS-and-v6-LTS)
-    - [io.js](https://github.com/nodejs/node/wiki/Breaking-Changes)
-
-
+- Grandes Cambios, [CHANGELOG Node.js](https://github.com/nodejs/node/blob/master/doc/changelogs/CHANGELOG_ARCHIVE.md)
 - Comprobar version:
   - Node
 
@@ -256,13 +240,11 @@ Soporte en cliente (librerías):
     node -v
     ```
 
-
 ### Hello World
 
 ```javascript
-console.log("Hola Mundo!");
+console.log("Hello World!");
 ```
-
 
 ### Librerías Nativas (CORE)
 
@@ -345,26 +327,45 @@ console.log("Hola Mundo!");
   ```javascript
   const http = require('http');
   
-  const url = 'https://google.es';
+  // Ping
+  function ping(host) {
+    http.get(host, (response) => {
+        console.log(`La respuesta de ${host} es ${response.statusCode}`)
+    }).on('error', (e) => {
+        console.log('Tenemos un error!! -', e.message);
+    });
+  }
+  ping('http://www.google.com');
+  ```
+
+- **LLamada a una API para obtener un JSON**
+
+  ```javascript
+  function getJSON(endpoint) {
+    return new Promise((resolve, reject) => {
+        http.get(endpoint, (response) => {
+            let data = '';
+            
+            response.on('data', (chunk) => {
+                data += chunk;
+            }).on('end', () => {
+                try {
+                    data = JSON.parse(data);
+                    resolve(data);
+                } catch(error) {
+                    reject(error);
+                }
+            });
+        }).on('error', reject);
+    });
+  }
   
-  http.get({ host: url }, (resOrigen) => {
-    http.createServer((req, res) => {
-      res.writeHead(200, {'Content-Type': 'text/plain'});
-      res.end(`La respuesta de ${url} es ${resOrigen.statusCode}`);
-    }).listen(8080, 'localhost');
-  }).on('error', (e) => {
-    http.createServer((req, res) => {
-      res.writeHead(200, {'Content-Type': 'text/plain'});
-      res.end(`La respuesta de ${url} es ${e.message}`);
-    }).listen(8080, 'localhost');
-    console.log('Tenemos un error!! -', e.message);
-  });
+  getJSON('http://ghibliapi.herokuapp.com/films/').then(console.log, console.error);
   ```
 
 - **[Objeto Request](https://nodejs.org/api/http.html#http_http_request_options_callback)**
 - **[Objeto Response](https://nodejs.org/api/http.html#http_class_http_serverresponse)**
 - **[Guide - Anatomy of an HTTP Transaction](https://nodejs.org/en/docs/guides/anatomy-of-an-http-transaction/)**
- 
 
 ### URL
 
@@ -584,35 +585,35 @@ console.log("Hola Mundo!");
   
   // Con CallBacks!
   fs.readFile('./README.md', (error, content) => {
-  	console.log('Leyendo el archivo...');
-  	fs.writeFile('./length.txt', content.length, (error) => {
-	    if (error) {
-	      console.log('error! ', error);
-	    } else {
-	      console.log('Terminado... hemos almacenado una cadena que vale ', content.length);
-	    }
-  	});
+    console.log('Leyendo el archivo...');
+    fs.writeFile('./length.txt', content.length, (error) => {
+      if (error) {
+        console.log('error! ', error);
+      } else {
+        console.log('Terminado... hemos almacenado una cadena que vale ', content.length);
+      }
+    });
   });
 
   // Con Promesas!
   function leerArchivo (file) {
-  	return new Promise((resolve, reject) => {
-  		fs.readFile(file, (error, contenido) => {
-  			console.log('Empezando la lectura de ', file);
-  			if(error){
-  				console.log('Error en la lectura');
-  				return reject(error);
-  			}
-  			console.log('Lectura finalizada en ', file);
-  			resolve(contenido);
-  		});
-  	});
+    return new Promise((resolve, reject) => {
+      fs.readFile(file, (error, contenido) => {
+        console.log('Empezando la lectura de ', file);
+        if (error) {
+          console.log('Error en la lectura');
+          return reject(error);
+        }
+        console.log('Lectura finalizada en ', file);
+        resolve(contenido);
+      });
+    });
   }
 
-  function escribirArchivo(file, content){
-  	return new Promise((resolve, reject) => {
-  		fs.writeFile(file, content, (error) => {
-  			if(error){
+  function escribirArchivo(file, content) {
+    return new Promise((resolve, reject) => {
+      fs.writeFile(file, content, (error) => {
+        if(error) {
   				console.log('Error en la escritura de ', file);
   				return reject(error);
   			}
@@ -652,7 +653,7 @@ console.log("Hola Mundo!");
 		console.log('El más rápido tiene solo '+respuesta.length+' caracteres.');
 	});
   ```
-  
+
 - **Ejemplo utilizando la librería [Q](https://github.com/kriskowal/q)**
 
   ```javascript
@@ -662,12 +663,11 @@ console.log("Hola Mundo!");
   
   // Con CallBacks!
   readFile('./README.md').then(content) => {
-  	console.log('El contenido es:', content);
+    console.log('El contenido es:', content);
   }, (error) => {
     console.log('error! ', error);
   });
   ```
-
 
 - **[Más métodos para:](https://nodejs.org/api/fs.html)**
 	- Síncronos
@@ -839,7 +839,7 @@ console.log("Hola Mundo!");
 - **Captura de errores inesperados**
 
   ```javascript
-  process.on('uncaughtException', (err) => {
+  process.on('uncaughtException', (error) => {
     console.error(error.stack);
   });
   ```
@@ -903,6 +903,7 @@ console.log("Hola Mundo!");
 
 
 ###  Child Process
+
 - Ideal para tareas pesadas, inestables o muy lentas
 - Nos permite usar comandos del sistema.
 - Podemos lanzar aplicaciones basadas en otros lenguajes o sistemas.
@@ -942,6 +943,7 @@ console.log("Hola Mundo!");
   if(process.argv[2] === 'hijo'){
     console.log('Estoy dentro del proceso hijo');
   } else {
+    console.log('Estoy dentro del proceso padre');
     const hijo = spawn(process.execPath, [__filename, 'hijo'])
     hijo.stdout.pipe(process.stdout)
   }
@@ -955,29 +957,10 @@ console.log("Hola Mundo!");
   if(process.argv[2] === 'hijo'){
     console.log('Estoy dentro del proceso hijo');
   } else {
+    console.log('Estoy dentro del proceso padre');
     const hijo = spawn(process.execPath, [__filename, 'hijo'], {
       stdio: 'inherit'
     })
-  }
-  ```
-
-- **Manejando hijos (contexto común):**
-
-  ```javascript
-  const spawn = require('child_process').spawn;
-
-  let contador = 1;
-  contador += 1;
-
-  if(process.argv[2] === 'hijo'){
-    console.log('hijo', contador);
-    contador++;
-    console.log('pero.. además el hijo.. suma otra! y son', contador);
-  } else {
-    const hijo = spawn(process.execPath, [__filename, 'hijo'], {
-      stdio: 'inherit'
-    });
-    console.log('padre', contador);
   }
   ```
 
@@ -1136,6 +1119,40 @@ console.log("===================================");
   const escritura = fs.createWriteStream('COPY.md');
   
   lectura.pipe(escritura);
+  ```
+
+- **Comprueba como el tiempo de respuesta es menor utilizando streams**
+
+  ```javascript
+  const http = require('http');
+  const fs = require('fs');
+  const url = require('url');
+
+  function createBigFile() {
+    const file = fs.createWriteStream('bigfile.txt');
+  
+    for(let i=0; i<= 1e6; i++) {
+      file.write('Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n');
+    }
+  
+    file.end();
+  }
+
+  createBigFile();
+
+  http.createServer((request, response) => {
+    const { pathname } = url.parse(request.url);
+  
+    if (pathname === '/stream') {
+      const bigfile = fs.createReadStream('bigfile.txt');
+      
+      bigfile.pipe(response);
+    } else {
+      fs.readFile('bigfile.txt', 'utf-8', (err, data) => {
+        response.end(data);
+      });
+    }
+  }).listen(8080);
   ```
 
 
@@ -1818,4 +1835,32 @@ https.get(options, (res) => {
   "author": "Ulises Gascon",
   "license": "ISC"
 }
+```
+
+**6 -** Crea un script que te dibuje el árbol de directorios desde donde lo has ejecutado:
+
+```javascript
+const fs = require('fs');
+const path = require('path');
+
+const PADDING = '  ';
+
+function renderDir(dir, level) {
+    console.log(PADDING.repeat(level) + path.basename(dir));
+}
+
+function drawTree(dir, level = 0) {
+    const stats = fs.lstatSync(dir);
+    
+    if (stats.isDirectory()) {
+        renderDir(dir, level);
+        fs.readdirSync(dir)
+            .map((filename) => path.join(dir, filename))
+            .forEach((filepath) => drawTree(filepath, level + 1))
+    } else if (stats.isFile()){
+        renderDir(dir, level);
+    }
+}
+
+drawTree(process.cwd())
 ```
