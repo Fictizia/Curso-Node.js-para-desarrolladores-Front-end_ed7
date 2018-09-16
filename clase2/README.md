@@ -251,10 +251,7 @@ console.log("Hello World!");
 **Los estados**
 - `0` *Deprecated*
 - `1` *Experimental*
-- `2` *Unstable*
-- `3` *Stable*
-- `4` *API Frozen*
-- `5` *Locked*
+- `2` *Stable*
 
 **Los módulos**
 - [Assertion testing](https://nodejs.org/api/assert.html)
@@ -362,8 +359,8 @@ console.log("Hello World!");
   
   getJSON('http://ghibliapi.herokuapp.com/films/').then(console.log, console.error);
   ```
-
-- **[Objeto Request](https://nodejs.org/api/http.html#http_http_request_options_callback)**
+- **[Función Request](https://nodejs.org/api/http.html#http_http_request_options_callback)**
+- **[Objeto Request](https://nodejs.org/api/http.html#http_class_http_incomingmessage)**
 - **[Objeto Response](https://nodejs.org/api/http.html#http_class_http_serverresponse)**
 - **[Guide - Anatomy of an HTTP Transaction](https://nodejs.org/en/docs/guides/anatomy-of-an-http-transaction/)**
 
@@ -376,12 +373,13 @@ console.log("Hello World!");
   ```javascript
   const url = require('url');
   const demoURL = 'http://localhost:3000/ruta?parametro=dato#detalle';
+  const parsedUrl = url.parse(demoURL, true);
   
-  console.log('El host: ' + url.parse(demoURL).hostname);
-  console.log('El puerto: ' + url.parse(demoURL).port);
-  console.log('La ruta: ' + url.parse(demoURL).pathname);
-  console.log('La parametro: ' + url.parse(demoURL).query);
-  console.log('El hash(#): ' + url.parse(demoURL).hash);
+  console.log('Host: ' + parsedUrl.hostname);
+  console.log('Puerto: ' + parsedUrl.port);
+  console.log('Ruta: ' + parsedUrl.pathname);
+  console.log('Parásmetros: ' + parsedUrl.query);
+  console.log('Hash: ' + parsedUrl.hash);
   ```
   
   ```javascript
@@ -679,6 +677,7 @@ console.log("Hello World!");
 ### Events
 
 ![events](../assets/event-loop-simple.png)
+
 - Patrón Observador
 - Similar al navegador
 
@@ -757,9 +756,13 @@ console.log("Hello World!");
 
 **Loop**
 
+![loop](../assets/nodejs-loop-simple.png)
+
 - [The JavaScript Event Loop: Explained](http://blog.carbonfive.com/2013/10/27/the-javascript-event-loop-explained/)
 
-![loop](../assets/event-loop-complex.png)
+![loop](../assets/nodejs-loop-complex.png)
+
+- [Entendiendo el Event Loop](https://medium.com/the-node-js-collection/what-you-should-know-to-really-understand-the-node-js-event-loop-and-its-metrics-c4907b19da4c)
 
 **Arquitecura diferente**
 
