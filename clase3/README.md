@@ -1067,6 +1067,6 @@ Una función que recibe 3 o 4 parámetros: req, res, next
 
 ### Ejercicios
 
-**1 -** Crearemos una aplciación utilizando Express para gestionar las peliculas que nos gustan.
+**1 -** Crearemos una aplicación utilizando Express para gestionar las películas que nos gustan.
 
 **[Ver en el siguiente repositorio](https://github.com/josex2r/film-api)**

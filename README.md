@@ -44,8 +44,8 @@ Teoría y Recursos
 |-----------------------------|-------------------------------|--------------------------------------------------------------------|
 | [Clase 1](clase1/README.md) | [Clase 1](clase1/recursos.md) | Javascript, Git, el entorno de desarrollo y nuevas funcionalidades |
 | [Clase 2](clase2/README.md) | [Clase 2](clase2/recursos.md) | HTTP, terminal UNIX, Node.js y npm                                 |
-| Clase 3                     | Clase 3                       | Express, middlewares y motores de plantillas                       |
-| Clase 4                     | Clase 4                       | Socket.io y despliegue en la nube mediante Heroku                  |
+| [Clase 3](clase3/README.md) | [Clase 3](clase3/recursos.md) | Express, middlewares y motores de plantillas                       |
+| [Clase 4](clase4/README.md) | [Clase 4](clase4/recursos.md) | Socket.io y despliegue en la nube mediante Heroku                  |
 | Clase 5                     | Clase 5                       | Bases de datos noSQL con Firebase                                  |
 | Clase 6                     | Clase 6                       | Automatización de tareas con Gulp                                  |
 | Clase 7                     | Clase 7                       | Testing de aplicaciones e integración contínua                     |
