@@ -170,6 +170,10 @@ firebase.auth().signInWithPopup(provider).then((result) => {
   });
   ```
 
+3. Utiliza el paquete [firebase-admin](https://www.npmjs.com/package/firebase-admin) para gestionar el token del usuario.
+
+4. [Ejemplo](https://firebase.google.com/docs/auth/admin/manage-sessions)
+
 **Detectar cambios de usuario**
 
 ```javascript
@@ -370,10 +374,10 @@ ref.limitToFirst(10);
 // Limita el número de elementos de la lista desde el final hasta la cantidad de elementos indicada
 ref.limitToLast(5);
 
-// Elementos mayores o iguales al valor indicado
+// Elementos a partir del índice
 ref.startAt(70);
 
-// Elementos menores o iguales al valor indicado
+// Elementos desde el índice (hacia atrás)
 ref.endAt();
 
 // Elementos iguales al valor indicado
