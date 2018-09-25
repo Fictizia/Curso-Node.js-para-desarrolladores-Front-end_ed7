@@ -1,4 +1,4 @@
-# Clase 3
+# Clase 5
 
 ### Firebase
 
@@ -202,6 +202,49 @@ const file = ...
 // Upload the file
 ref.put(file).then((snapshot) => {
   console.log('Uploaded a blob or file!');
+});
+```
+
+**Manejar el estado de una subida**
+
+```javascript
+// Upload the file and metadata
+var uploadTask = storageRef.child('images/mountains.jpg').put(file);
+
+// Pause the upload
+uploadTask.pause();
+
+// Resume the upload
+uploadTask.resume();
+
+// Cancel the upload
+uploadTask.cancel();
+```
+
+**Conocer el estado de una subida**
+
+```javascript
+var uploadTask = storageRef.child('images/rivers.jpg').put(file);
+
+uploadTask.on('state_changed', (snapshot) => {
+  var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+  console.log('Upload is ' + progress + '% done');
+  
+  switch (snapshot.state) {
+    case firebase.storage.TaskState.PAUSED:
+      console.log('Upload is paused');
+      break;
+    case firebase.storage.TaskState.RUNNING:
+      console.log('Upload is running');
+      break;
+  }
+}, (error) => {
+  // Handle unsuccessful uploads
+}, () => {
+  // Handle successful uploads on complete
+  uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+    console.log('File available at', downloadURL);
+  });
 });
 ```
 
