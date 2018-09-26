@@ -308,6 +308,8 @@ inStream.pipe(outStream);
   - Genera pantallazos de la web en diversos tamaños 
 - [PSI](https://github.com/addyosmani/psi)
   - PageSpeed Insights desde la termianl
+- [gulp-tap](https://www.npmjs.com/package/gulp-tap)
+  - Callback para procesar por separado cada fichero del stream
 
 **Grunt vs. Gulp**
 
