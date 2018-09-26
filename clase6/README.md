@@ -1,5 +1,107 @@
 # Clase 6
 
+### Streams
+
+Los streams son collecciones/flujos de datos — algo parecido a los `Arrays` o los `Strings`.
+La diferencia es que los datos del stream pueden no estar siempre disponibles, y pueden "contener" más datos que el límite de la memoria.
+
+Una de las propiedades más importantes es el **encadenamiento**, podemos modificar los datos iniciales como si fuésemos encadenando comando de bash:
+
+```bash
+$ echo "Hola" | grep "o"
+```
+
+**Ejemplos de streams en Node.js**:
+
+![streams](../assets/streams.png)
+
+#### Tipos de streams
+
+- `Readable` (lectura): Es una abstracción de un conjunto de datos de entrada, por ejemplo `fs.createReadStream()`.
+- `Writable` (escritura): Es una abstracción del destino en el que será escrito, por ejemplo `fs.createWriteStream()`.
+- `Duplex` (lectura y escritura): Por ejemplo un socket TCP.
+- `Transform`: Un stream que a parte de leer y escribir va transformando los datos a medida que van llegando, por ejemplo `zlib.createGzip()`.
+
+> Todos los streams son instancias de `EventEmitter`, emiten eventos a medida que leen y escriben datos.
+> Sin embargo, podemos consumir y encadenar streams de una manera sencilla utilizando la función `pipe()`.
+
+#### La función `pipe()`
+
+```javascript
+readableSrc
+  .pipe(transformStream1)
+  .pipe(transformStream2)
+  .pipe(finalWrtitableDest)
+```
+
+La función `pipe()` devuelve la salida del stream anterior:
+
+```javascript
+a.pipe(b).pipe(c).pipe(d)
+
+// Es equivalente a:
+a.pipe(b);
+b.pipe(c);
+c.pipe(d);
+
+// En Linux, es equivalente a:
+$ a | b | c | d
+```
+
+#### Eventos
+
+Los eventos más importantes de un stream de lectura son:
+
+- `data`: Cada vez que se procesa un trozo del dato.
+- `end`: Cuando ya se han emitido la totalidad de los datos.
+
+Los eventos más importantes de un stream de escritura son:
+- `drain`: Cuando el stream está disponible para recibir más datos.
+- `finish`: Cuando ya se han liberado todos los datos del stream (se vacía).
+
+```javascript
+// readable.pipe(writable)
+
+readable.on('data', (chunk) => {
+  writable.write(chunk);
+});
+
+readable.on('end', () => {
+  writable.end();
+});
+```
+
+![stream-events](../assets/stream-events.png)
+
+#### Implementando un stream de lectura y uno de escritura
+
+```js
+const { Readable, Writable } = require('stream');
+
+const inStream = new Readable({
+  read(size) {
+    this.push(String.fromCharCode(this.currentCharCode++));
+
+    if (this.currentCharCode > 90) {
+      this.push(null);
+    }
+  }
+});
+
+const outStream = new Writable({
+  write(chunk, encoding, callback) {
+    console.log(chunk.toString())
+    callback();
+  }
+});
+
+inStream.currentCharCode = 65;
+
+inStream.pipe(outStream);
+```
+
+#### [Más info](https://medium.freecodecamp.org/node-js-streams-everything-you-need-to-know-c9141306be93)
+
 ### Gulp 
 
 ![Gulp](../assets/gulp.png)
