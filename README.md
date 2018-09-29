@@ -48,8 +48,8 @@ Teoría y Recursos
 | [Clase 4](clase4/README.md) | [Clase 4](clase4/recursos.md) | Socket.io y despliegue en la nube mediante Heroku                  |
 | [Clase 5](clase5/README.md) | [Clase 5](clase5/recursos.md) | Bases de datos noSQL con Firebase                                  |
 | [Clase 6](clase6/README.md) | [Clase 6](clase6/recursos.md) | Automatización de tareas con Gulp                                  |
-| Clase 7                     | Clase 7                       | Testing de aplicaciones e integración contínua                     |
-| Clase 8                     | Clase 8                       | Creando bots "inteligentes"                                        |
+| [Clase 7](clase7/README.md) | [Clase 7](clase7/recursos.md) | Testing de aplicaciones e integración contínua                     |
+| [Clase 8](clase8/README.md) | [Clase 8](clase8/recursos.md) | Creando bots "inteligentes"                                        |
 
 Temario
 =================
