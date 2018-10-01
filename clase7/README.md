@@ -34,6 +34,31 @@ En primer lugar, se escribe una prueba y se verifica que las pruebas fallan. A c
 1. Refactoriza
 1. Repite
 
+![tdd](../assets/tdd.gif)
+
+### Pair programming
+
+![pair-programming](../assets/pair-programming.jpg)
+
+> La técnica del pair programming consiste en codificar en pareja sobre el mismo código.
+
+**Cada participante tiene un rol**:
+- `Navigator`: Es la persona encargada de marcar el ritmo y dirigir el desarrollo. Solo puede hablar.
+- `Driver`: Es el encargado de escribir el código, únicamente él puede tocar el teclado.
+
+**Técnicas**:
+- `Driver-Navigator`: Es la técnica clásica, el `driver` va escribiendo mientras el `navigator` dirige y le va diciendo qué es lo que tiene que hacer.
+
+  ![driver-navigator](../assets/driver-navigator.jpeg)
+
+- `Strong Style`: Es muy parecida a la anterior, pero ada vez que alguien quiera opinar o dirigir tiene que pasarle el teclado a la otra persona.
+
+  ![driver-navigator](../assets/strong-style.jpeg)
+
+- `Ping Pong`: Ahora hay que aplicar TDD en estado puro. Uno de los dos implementa un test y le pasa el teclado a la otra persona para que lo resuelva. Una vez resuelte escribe un nuevo test y vuelve a pasar el teclado. Así sucesivamente...
+
+  ![ping-pong](../assets/ping-pong.jpeg)
+
 ### Algunos datos recientes
 
 ![frameworks](../assets/tdd-frameworks.png)
