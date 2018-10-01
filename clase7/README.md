@@ -154,6 +154,12 @@ $ mocha --compilers js:babel-core/register -r babel-polyfill tests/*.js
   });
   ```
 
+**Funciones para modificarr el contexto de ejecución**:
+
+- `this.retries(4)`: Aumenta el número mínimo de reintentos antes de fallar.
+- `this.slow(10000)`: Por defecto `mocha` te avisa cuando un test ha tardado mucho, con ésta función puedes cambiar el umbral.
+- `this.timeout(500)`: Aumenta el tiempo máximo de ejecución del test.
+
 [Explain Mocha's testing framework - describe(), it() and before()/etc hooks](https://gist.github.com/samwize/8877226)
 
 #### Chai
@@ -276,7 +282,27 @@ Deberás preparar un entorno básico de testing siguiendo los siguientes patrone
   - 1 billete de 10€.
   - 3 billetes de 50€.
 
-**3 -** Testea la siguiente función utilizando `sinon.js` y [sinon-chai](https://github.com/domenic/sinon-chai):
+**3 -** Crea una función que acepte como primer argumento un número.
+Esa función debe devolver un objeto con los métodos `add()` y `subtract()`, y a su vez esos métodos se podrán ir encadenando hasta el infinito.
+- Cuando se llame a la función `add()`, tendrá que imprimir por consola el número anterior `+1`.
+- Cuando se llame a la función `subtract()`, tendrá que imprimir por consola el número anterior `-1`.
+
+Ejemplo:
+
+```javascript
+function createNumber() {
+  // return ...
+}
+
+createNumber(5)   // prints "5"
+  .add()          // prints "6"
+  .add()          // prints "7"
+  .subtract()     // prints "6"
+  .add()          // prints "7"
+  // ...
+```
+
+**4 -** Testea la siguiente función utilizando `sinon.js` y [sinon-chai](https://github.com/domenic/sinon-chai):
 
 ```javascript
 function getFilm(id, adapter) {
